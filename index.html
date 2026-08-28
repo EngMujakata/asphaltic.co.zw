@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title>Asphaltic Solutions | Road Construction & Civil Engineering Zimbabwe</title>
     
+    <!-- Favicon / Window Tab Icon -->
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    
     <!-- Open Graph / WhatsApp Preview Meta Tags -->
     <meta property="og:title" content="Asphaltic Solutions | Civil Engineering & Road Surfacing">
     <meta property="og:description" content="Your trusted partner in Road Construction, Asphalt Paving, Road Marking, Signage and Sports Courts Construction.">
@@ -32,10 +36,6 @@
             box-sizing: border-box;
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
-
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--white);
@@ -43,6 +43,9 @@
             line-height: 1.6;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         a {
@@ -64,24 +67,32 @@
             padding: 0 20px;
         }
 
-        /* --- Animations --- */
-        .fade-up {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        /* --- Page Routing Structure --- */
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
         }
-        .fade-up.visible {
-            opacity: 1;
-            transform: translateY(0);
+
+        .page-section {
+            display: none; /* Hide all pages by default */
+            width: 100%;
+            animation: fadeIn 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
         }
-        .reveal {
-            opacity: 0;
-            transform: scale(0.95);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+
+        .page-section.active-page {
+            display: block; /* Show active page */
         }
-        .reveal.visible {
-            opacity: 1;
-            transform: scale(1);
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* --- Header --- */
@@ -105,12 +116,13 @@
             display: flex;
             align-items: center;
             gap: 12px;
+            cursor: pointer;
         }
 
         .logo img {
             height: 50px;
             width: auto;
-            background: #f0f0f0; /* Fallback if logo.png missing */
+            background: #f0f0f0;
             border-radius: 4px;
         }
 
@@ -129,7 +141,6 @@
             text-transform: uppercase;
         }
 
-        /* Nav Toggle for Mobile */
         .nav-toggle {
             display: none;
             flex-direction: column;
@@ -165,6 +176,7 @@
             position: relative;
             padding-bottom: 4px;
             transition: var(--transition);
+            cursor: pointer;
         }
         nav a::after {
             content: '';
@@ -176,14 +188,17 @@
             background: var(--primary-yellow);
             transition: var(--transition);
         }
-        nav a:hover::after { width: 100%; }
-        nav a:hover { color: var(--primary-yellow); }
+        nav a:hover::after,
+        nav a.active::after { width: 100%; }
+        nav a:hover,
+        nav a.active { color: var(--primary-yellow); }
 
         .nav-cta {
             background: var(--primary-yellow);
             padding: 8px 18px;
             border-radius: 4px;
             font-weight: 700;
+            color: var(--primary-black) !important;
             transition: var(--transition);
         }
         .nav-cta:hover {
@@ -191,7 +206,7 @@
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(255, 184, 0, 0.3);
         }
-        .nav-cta::after { display: none; }
+        .nav-cta::after { display: none !important; }
 
         /* --- Hero --- */
         .hero {
@@ -216,7 +231,7 @@
             opacity: 0.9;
             z-index: 1;
             filter: grayscale(20%);
-            background: #2a2a2a; /* Fallback color if 1.png missing */
+            background: #2a2a2a;
         }
 
         .hero-overlay {
@@ -263,6 +278,7 @@
             text-transform: uppercase;
             border-radius: 4px;
             transition: var(--transition);
+            cursor: pointer;
         }
         .hero-cta:hover {
             transform: translateY(-3px);
@@ -354,8 +370,8 @@
             object-fit: cover;
             border-radius: 50%;
             border: 3px solid var(--primary-yellow);
-            margin-bottom: 12px;
-            background: #333; /* Fallback */
+            margin: 0 auto 12px auto;
+            background: #333;
         }
         .director-card h4 { color: var(--white); font-size: 18px; font-weight: 700; }
         .director-card p { color: rgba(255,255,255,0.6); font-size: 13px; margin-top: 4px; }
@@ -383,49 +399,11 @@
             width: 100%;
             height: 200px;
             object-fit: cover;
-            background: #e0e0e0; /* Fallback */
+            background: #e0e0e0;
         }
         .service-content { padding: 20px; }
         .service-content h3 { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
         .service-content p { color: var(--text-grey); font-size: 14px; }
-
-        /* --- Equipment --- */
-        .equipment { padding: 60px 0; background: var(--light-grey); }
-        .equipment-container {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 32px;
-        }
-        .equipment-text h2 { font-size: 28px; font-weight: 800; margin-bottom: 12px; }
-        .equipment-text p { color: var(--text-grey); margin-bottom: 24px; font-size: 15px; }
-        .equipment-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 6px 20px;
-        }
-        .equipment-item {
-            display: flex;
-            justify-content: space-between;
-            border-bottom: 1px solid #E5E7EB;
-            padding: 10px 0;
-            font-weight: 600;
-            font-size: 14px;
-        }
-        .equipment-item span:last-child {
-            color: var(--primary-yellow);
-            background: var(--primary-black);
-            padding: 0 10px;
-            border-radius: 4px;
-            font-weight: 700;
-        }
-        .equipment-img img {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-            border-radius: 8px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
-            background: #ddd; /* Fallback */
-        }
 
         /* --- Portfolio --- */
         .portfolio { padding: 60px 0; }
@@ -441,7 +419,7 @@
             border-radius: 6px;
             transition: var(--transition);
             filter: brightness(0.95);
-            background: #e0e0e0; /* Fallback */
+            background: #e0e0e0;
         }
         .portfolio-grid img:hover {
             transform: scale(1.02);
@@ -476,9 +454,7 @@
         .contact-item .value { color: var(--white); font-weight: 600; font-size: 15px; word-break: break-all; }
         .contact-item a.value { color: var(--primary-yellow); transition: var(--transition); }
         .contact-item a.value:hover { color: #e6a700; }
-        .contact-item[style*="border-left-color: #25D366"] svg { fill: #25D366; }
         
-        /* Contact Form Styles */
         .contact-form-container {
             background: var(--secondary-black);
             padding: 24px;
@@ -537,7 +513,12 @@
         }
 
         /* --- Footer --- */
-        footer { background: #0A0A0A; padding: 24px 0; border-top: 1px solid #1A1A1A; }
+        footer {
+            background: #0A0A0A;
+            padding: 24px 0;
+            border-top: 1px solid #1A1A1A;
+            margin-top: auto;
+        }
         .footer-content {
             display: flex;
             flex-direction: column;
@@ -549,7 +530,7 @@
         .footer-content .footer-logo { color: var(--white); font-weight: 700; font-size: 16px; }
         .footer-content .footer-logo span { color: var(--primary-yellow); }
 
-        /* --- Media Queries (Mobile & Tablet) --- */
+        /* --- Media Queries --- */
         @media (max-width: 768px) {
             .nav-toggle { display: flex; }
             nav {
@@ -582,11 +563,9 @@
             .about { padding: 100px 0; }
             .directors { padding: 100px 0; }
             .services { padding: 100px 0; }
-            .equipment { padding: 100px 0; }
             .portfolio { padding: 100px 0; }
             .contact { padding: 100px 0; }
             
-            .equipment-container { grid-template-columns: 1fr 1fr; }
             .contact-grid { grid-template-columns: 1fr 1fr; }
             .director-grid { grid-template-columns: 1fr 1fr 1fr; }
             .services-grid { grid-template-columns: 1fr 1fr 1fr; }
@@ -599,12 +578,10 @@
             .container { padding: 0 40px; }
         }
         
-        /* Fix for very small phones */
         @media (max-width: 399px) {
             .hero-content h1 { font-size: 28px; }
             .logo img { height: 40px; }
             .logo-text h1 { font-size: 16px; }
-            .equipment-grid { grid-template-columns: 1fr; }
             .portfolio-grid { grid-template-columns: 1fr; }
         }
     </style>
@@ -613,9 +590,8 @@
 
     <header>
         <div class="container header-content">
-            <div class="logo">
-                <!-- logo.png -->
-                <img src="logo.png" alt="Asphaltic Solutions Logo">
+            <div class="logo" onclick="navigateTo('home')">
+                <img src="logo.png" alt="Asphaltic Solutions Logo" width="50" height="50">
                 <div class="logo-text">
                     <h1>ASPHALTIC</h1>
                     <span>Solutions Pvt Ltd</span>
@@ -630,257 +606,269 @@
 
             <nav id="navMenu">
                 <ul>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#portfolio">Portfolio</a></li>
-                    <li><a href="#contact" class="nav-cta">Contact</a></li>
+                    <li><a href="#home" class="nav-link active" onclick="navigateTo('home')">Home</a></li>
+                    <li><a href="#about" class="nav-link" onclick="navigateTo('about')">About</a></li>
+                    <li><a href="#services" class="nav-link" onclick="navigateTo('services')">Services</a></li>
+                    <li><a href="#portfolio" class="nav-link" onclick="navigateTo('portfolio')">Portfolio</a></li>
+                    <li><a href="#contact" class="nav-link nav-cta" onclick="navigateTo('contact')">Contact</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <section class="hero">
-        <!-- 1.png -->
-        <img src="1.png" alt="Road Construction Background" class="hero-background">
-        <div class="hero-overlay"></div>
-        <div class="hero-content fade-up">
-            <h1>Building <span>Infrastructure</span> for Tomorrow</h1>
-            <p>Industry leaders in road surfacing, asphalt paving, and civil engineering solutions across Zimbabwe.</p>
-            <a href="#contact" class="hero-cta">Request a Consultation</a>
-        </div>
-    </section>
-
-    <section id="about" class="about">
-        <div class="container">
-            <div class="section-header fade-up">
-                <h2>About Asphaltic Solutions</h2>
-                <div class="section-line"></div>
-                <p class="subtitle">Delivering quality and value through integrated solutions and superior contracting services.</p>
-            </div>
-            <div class="about-grid">
-                <div class="about-card fade-up">
-                    <h3>Our Vision</h3>
-                    <p>To be Zimbabwe's preferred provider of road construction and asphaltic paving services, recognized for excellence, innovation, quality, and sustainable infrustracture development.</p>
-                    <br>
-                    <p>We are committed to delivering superior road networks that enhance connectivity, economic growth, and community development.</p>
+    <main id="main-content">
+        <!-- Page 1: Home -->
+        <section id="page-home" class="page-section active-page">
+            <div class="hero">
+                <img src="1.png" alt="Road Construction Background" class="hero-background" width="1200" height="700">
+                <div class="hero-overlay"></div>
+                <div class="hero-content">
+                    <h1>Building <span>Infrastructure</span> for Tomorrow</h1>
+                    <p>Industry leaders in road surfacing, asphalt paving, and civil engineering solutions across Zimbabwe.</p>
+                    <a onclick="navigateTo('contact')" class="hero-cta">Request a Consultation</a>
                 </div>
-                <div class="about-card fade-up">
-                    <h3>Our Mission & Values</h3>
-                    <p>To provide superior specialty contracting services by creating mutually rewarding relationships in a safe, inspiring, and open environment.</p>
-                    <br>
-                    <h4 style="font-size: 15px;">Core Objectives</h4>
-                    <ul style="color: var(--text-grey); list-style: none; padding-left: 0; margin-top: 8px;">
-                        <li style="padding: 4px 0;">Maintain Health & Safety standards to the highest level</li>
-                        <li style="padding: 4px 0;">Build lasting and successful relationships with clients</li>
-                        <li style="padding: 4px 0;">Exceed expectations cost-effectively within agreed timeframes</li>
-                        <li style="padding: 4px 0;">Grow our team and operational capacity</li>
-                    </ul>
-                    <div class="core-values">
-                        <span>Creativity</span>
-                        <span>Respect</span>
-                        <span>Safety</span>
-                        <span>Teamwork</span>
-                        <span>Responsiveness</span>
-                        <span>Integrity</span>
-                        <span>Initiative</span>
+            </div>
+        </section>
+
+        <!-- Page 2: About -->
+        <section id="page-about" class="page-section">
+            <div class="about">
+                <div class="container">
+                    <div class="section-header">
+                        <h2>About Asphaltic Solutions</h2>
+                        <div class="section-line"></div>
+                        <p class="subtitle">Delivering quality and value through integrated solutions and superior contracting services.</p>
+                    </div>
+                    <div class="about-grid">
+                        <div class="about-card">
+                            <h3>Our Vision</h3>
+                            <p>To be Zimbabwe's preferred provider of road construction and asphaltic paving services, recognized for excellence, innovation, quality, and sustainable infrastructure development.</p>
+                            <br>
+                            <p>We are committed to delivering superior road networks that enhance connectivity, economic growth, and community development.</p>
+                        </div>
+                        <div class="about-card">
+                            <h3>Our Mission & Values</h3>
+                            <p>To provide superior specialty contracting services by creating mutually rewarding relationships in a safe, inspiring, and open environment.</p>
+                            <br>
+                            <h4 style="font-size: 15px;">Core Objectives</h4>
+                            <ul style="color: var(--text-grey); list-style: none; padding-left: 0; margin-top: 8px;">
+                                <li style="padding: 4px 0;">Maintain Health & Safety standards to the highest level</li>
+                                <li style="padding: 4px 0;">Build lasting and successful relationships with clients</li>
+                                <li style="padding: 4px 0;">Exceed expectations cost-effectively within agreed timeframes</li>
+                                <li style="padding: 4px 0;">Grow our team and operational capacity</li>
+                            </ul>
+                            <div class="core-values">
+                                <span>Creativity</span>
+                                <span>Respect</span>
+                                <span>Safety</span>
+                                <span>Teamwork</span>
+                                <span>Responsiveness</span>
+                                <span>Integrity</span>
+                                <span>Initiative</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <section class="directors">
-        <div class="container">
-            <div class="section-header fade-up">
-                <h2>Board of Directors</h2>
-                <div class="section-line"></div>
-                <p class="subtitle">Experienced leadership driving excellence in civil engineering.</p>
-            </div>
-            <div class="director-grid">
-                <div class="director-card reveal">
-                    <img src="d11.png" alt="Thobias Makuwatsine">
-                    <h4>Thobias Makuwatsine</h4>
-                    <p>Business Development Lead<br>MCom(MM)<br>BBM&IT (Hons) (CUZ)</p>
-                </div>
-                <div class="director-card reveal">
-                    <img src="d3.png" alt="Tawanda Makuwatsine">
-                    <h4>Tawanda Makuwatsine</h4>
-                    <p>Director Operations<br>Dip Civil Engineering (SA)<br>+18 years Road Construction</p>
-                </div>
-                <div class="director-card reveal">
-                    <img src="3.png" alt="Darlinson Makuwatsine">
-                    <h4>Darlinson Makuwatsine</h4>
-                    <p>Administration</p>
-                </div>
-                <div class="director-card reveal">
-                    <img src="d1.png" alt="Solomon Makuwatsine">
-                    <h4>Solomon Makuwatsine</h4>
-                    <p>MSc International Relations & Diplomacy (China 2015)<br>BSc Psychology UZ (2005)<br>IPMZ Certificate (2004)</p>
-                </div>
-                <div class="director-card reveal">
-                    <img src="d2.png" alt="Simon Makuwatsine">
-                    <h4>Simon Makuwatsine</h4>
-                    <p>Secretary</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="services" class="services">
-        <div class="container">
-            <div class="section-header fade-up">
-                <h2>Our Services</h2>
-                <div class="section-line"></div>
-                <p class="subtitle">Over 16 years of hands-on experience in road surfacing, rehabilitation, and specialized civil works.</p>
-            </div>
-            <div class="services-grid">
-                <div class="service-item fade-up">
-                    <!-- 5.png -->
-                    <img src="5.png" alt="Road Surfacing">
-                    <div class="service-content">
-                        <h3>Road Surfacing</h3>
-                        <p>Specialists in asphaltic road surfacing, concrete paving, and precast pavers. We deliver quality work on time and within specifications.</p>
+            <div class="directors">
+                <div class="container">
+                    <div class="section-header">
+                        <h2>Board of Directors</h2>
+                        <div class="section-line"></div>
+                        <p class="subtitle">Experienced leadership driving excellence in civil engineering.</p>
                     </div>
-                </div>
-                <div class="service-item fade-up">
-                    <!-- 6.png -->
-                    <img src="6.png" alt="Pothole Fixing">
-                    <div class="service-content">
-                        <h3>Pothole Fixing</h3>
-                        <p>Dedicated teams equipped to address the pothole challenge across the nation with durable and long-lasting asphalt solutions.</p>
-                    </div>
-                </div>
-                <div class="service-item fade-up">
-                    <!-- 7.png -->
-                    <img src="7.png" alt="Sport Courts">
-                    <div class="service-content">
-                        <h3>Sport Courts</h3>
-                        <p>Construction, maintenance, and repair of tennis courts, volleyball courts, and other tar or concrete surfaced courts.</p>
-                    </div>
-                </div>
-                <div class="service-item fade-up">
-                    <!-- 8.png -->
-                    <img src="8.png" alt="Road Marking">
-                    <div class="service-content">
-                        <h3>Road Marking & Signs</h3>
-                        <p>Experts in road markings for highways, shopping complexes, parking lots, and industrial safety. We also manufacture and mount all types of road signs.</p>
-                    </div>
-                </div>
-                <div class="service-item fade-up">
-                    <!-- 9.png -->
-                    <img src="9.png" alt="Durawall Construction">
-                    <div class="service-content">
-                        <h3>Durawall Construction</h3>
-                        <p>Specialized construction and maintenance of Durawall and precast concrete boundary structures for commercial and residential security.</p>
-                    </div>
-                </div>
-                <div class="service-item fade-up">
-                    <!-- 10.png -->
-                    <img src="10.png" alt="Plant Hire">
-                    <div class="service-content">
-                        <h3>Asphaltic Plant Hire</h3>
-                        <p>Extensive fleet of heavy machinery available for hire, including graders, rollers, excavators, and dump trucks to support any construction project.</p>
+                    <div class="director-grid">
+                        <div class="director-card">
+                            <img src="d11.png" alt="Thobias Makuwatsine" width="100" height="100">
+                            <h4>Thobias Makuwatsine</h4>
+                            <p>Business Development Lead<br>MCom(MM)<br>BBM&IT (Hons) (CUZ)</p>
+                        </div>
+                        <div class="director-card">
+                            <img src="d3.png" alt="Tawanda Makuwatsine" width="100" height="100">
+                            <h4>Tawanda Makuwatsine</h4>
+                            <p>Director Operations<br>Dip Civil Engineering (SA)<br>+18 years Road Construction</p>
+                        </div>
+                        <div class="director-card">
+                            <img src="3.png" alt="Darlinson Makuwatsine" width="100" height="100">
+                            <h4>Darlinson Makuwatsine</h4>
+                            <p>Administration</p>
+                        </div>
+                        <div class="director-card">
+                            <img src="d1.png" alt="Solomon Makuwatsine" width="100" height="100">
+                            <h4>Solomon Makuwatsine</h4>
+                            <p>MSc International Relations & Diplomacy (China 2015)<br>BSc Psychology UZ (2005)<br>IPMZ Certificate (2004)</p>
+                        </div>
+                        <div class="director-card">
+                            <img src="d2.png" alt="Simon Makuwatsine" width="100" height="100">
+                            <h4>Simon Makuwatsine</h4>
+                            <p>Secretary</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="portfolio" class="portfolio">
-        <div class="container">
-            <div class="section-header fade-up">
-                <h2>Project Portfolio</h2>
-                <div class="section-line"></div>
-                <p class="subtitle">Delivering excellence across public roads, private business premises, schools, and domestic spaces.</p>
-            </div>
-            <div class="portfolio-grid">
-                <!-- 12.png through 17.png -->
-                <img src="12.png" alt="Public Road Project" class="reveal">
-                <img src="13.png" alt="Parking Lot Marking" class="reveal">
-                <img src="14.png" alt="Industrial Floor Marking" class="reveal">
-                <img src="15.png" alt="School Facility Surfacing" class="reveal">
-                <img src="16.png" alt="Highway Slurry Coating" class="reveal">
-                <img src="17.png" alt="Domestic Paving" class="reveal">
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="contact">
-        <div class="container">
-            <div class="section-header fade-up">
-                <h2>Get In Touch</h2>
-                <div class="section-line"></div>
-                <p class="subtitle">Let's build a lasting partnership. Contact our team for a consultation or quote.</p>
-            </div>
-            <div class="contact-grid">
-                <div class="contact-info fade-up">
-
-                        <div>
-
+        <!-- Page 3: Services -->
+        <section id="page-services" class="page-section">
+            <div class="services">
+                <div class="container">
+                    <div class="section-header">
+                        <h2>Our Services</h2>
+                        <div class="section-line"></div>
+                        <p class="subtitle">Over 16 years of hands-on experience in road surfacing, rehabilitation, and specialized civil works.</p>
                     </div>
+                    <div class="services-grid">
+                        <div class="service-item">
+                            <img src="5.png" alt="Road Surfacing" width="400" height="200">
+                            <div class="service-content">
+                                <h3>Road Surfacing</h3>
+                                <p>Specialists in asphaltic road surfacing, concrete paving, and precast pavers. We deliver quality work on time and within specifications.</p>
+                            </div>
+                        </div>
+                        <div class="service-item">
+                            <img src="6.png" alt="Pothole Fixing" width="400" height="200">
+                            <div class="service-content">
+                                <h3>Pothole Fixing</h3>
+                                <p>Dedicated teams equipped to address the pothole challenge across the nation with durable and long-lasting asphalt solutions.</p>
+                            </div>
+                        </div>
+                        <div class="service-item">
+                            <img src="7.png" alt="Sport Courts" width="400" height="200">
+                            <div class="service-content">
+                                <h3>Sport Courts</h3>
+                                <p>Construction, maintenance, and repair of tennis courts, volleyball courts, and other tar or concrete surfaced courts.</p>
+                            </div>
+                        </div>
+                        <div class="service-item">
+                            <img src="8.png" alt="Road Marking" width="400" height="200">
+                            <div class="service-content">
+                                <h3>Road Marking & Signs</h3>
+                                <p>Experts in road markings for highways, shopping complexes, parking lots, and industrial safety. We also manufacture and mount all types of road signs.</p>
+                            </div>
+                        </div>
+                        <div class="service-item">
+                            <img src="9.png" alt="Durawall Construction" width="400" height="200">
+                            <div class="service-content">
+                                <h3>Durawall Construction</h3>
+                                <p>Specialized construction and maintenance of Durawall and precast concrete boundary structures for commercial and residential security.</p>
+                            </div>
+                        </div>
+                        <div class="service-item">
+                            <img src="10.png" alt="Plant Hire" width="400" height="200">
+                            <div class="service-content">
+                                <h3>Asphaltic Plant Hire</h3>
+                                <p>Extensive fleet of heavy machinery available for hire, including graders, rollers, excavators, and dump trucks to support any construction project.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-                    <div class="contact-item">
-                        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-                        <div>
-                            <span class="label">Email Us</span>
-                            <!-- Fixed email domain and typo -->
-                            <a href="mailto:info@asphaltic.co.zw" class="value">info@asphaltic.co.zw</a>
+        <!-- Page 4: Portfolio -->
+        <section id="page-portfolio" class="page-section">
+            <div class="portfolio">
+                <div class="container">
+                    <div class="section-header">
+                        <h2>Project Portfolio</h2>
+                        <div class="section-line"></div>
+                        <p class="subtitle">Delivering excellence across public roads, private business premises, schools, and domestic spaces.</p>
+                    </div>
+                    <div class="portfolio-grid">
+                        <img src="12.png" alt="Public Road Project" width="400" height="180">
+                        <img src="13.png" alt="Parking Lot Marking" width="400" height="180">
+                        <img src="14.png" alt="Industrial Floor Marking" width="400" height="180">
+                        <img src="15.png" alt="School Facility Surfacing" width="400" height="180">
+                        <img src="16.png" alt="Highway Slurry Coating" width="400" height="180">
+                        <img src="17.png" alt="Domestic Paving" width="400" height="180">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Page 5: Contact -->
+        <section id="page-contact" class="page-section">
+            <div class="contact">
+                <div class="container">
+                    <div class="section-header">
+                        <h2>Get In Touch</h2>
+                        <div class="section-line"></div>
+                        <p class="subtitle">Let's build a lasting partnership. Contact our team for a consultation or quote.</p>
+                    </div>
+                    <div class="contact-grid">
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                                <div>
+                                    <span class="label">Email Us</span>
+                                    <a href="mailto:info@asphaltic.co.zw" class="value">info@asphaltic.co.zw</a>
+                                </div>
+                            </div>
+
+                            <div class="contact-item">
+                                <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                                <div>
+                                    <span class="label">Call Us</span>
+                                    <a href="tel:+263778490702" class="value">+263 77 849 0702</a>
+                                </div>
+                            </div>
+
+                            <div class="contact-item" style="border-left-color: #25D366;">
+                                <svg viewBox="0 0 24 24" style="fill: #25D366;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                                <div>
+                                    <span class="label">WhatsApp</span>
+                                    <a href="https://wa.me/263719203802?text=Hello%20Asphaltic%20Solutions%2C%20I%20am%20interested%20in%20your%20construction%20services%20and%20would%20like%20a%20quote." class="value" target="_blank" rel="noopener">+263 719 203 802</a>
+                                </div>
+                            </div>
+
+                            <div class="contact-item">
+                                <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                                <div>
+                                    <span class="label">Postal Address</span>
+                                    <span class="value">P.O. Box 23, Harare</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-form-container">
+                            <h3>Request a Quote</h3>
+                            <form class="contact-form" id="quoteForm">
+                                <label for="form-name" class="sr-only" style="display:none;">Full Name</label>
+                                <input type="text" id="form-name" name="Name" placeholder="Your Full Name" required>
+                                
+                                <label for="form-email" class="sr-only" style="display:none;">Email Address</label>
+                                <input type="email" id="form-email" name="Email" placeholder="Your Email Address" required>
+                                
+                                <label for="form-phone" class="sr-only" style="display:none;">Phone Number</label>
+                                <input type="tel" id="form-phone" name="Phone" placeholder="Phone Number">
+                                
+                                <label for="form-service" class="sr-only" style="display:none;">Select Service</label>
+                                <select id="form-service" name="Service" required>
+                                    <option value="" disabled selected>Select Service Required</option>
+                                    <option value="Road Surfacing">Road Surfacing</option>
+                                    <option value="Pothole Fixing">Pothole Fixing</option>
+                                    <option value="Sport Courts">Sport Courts</option>
+                                    <option value="Road Marking & Signs">Road Marking & Signs</option>
+                                    <option value="Durawall Construction">Durawall Construction</option>
+                                    <option value="Plant Hire">Asphaltic Plant Hire</option>
+                                </select>
+                                
+                                <label for="form-message" class="sr-only" style="display:none;">Project Details</label>
+                                <textarea id="form-message" name="Message" rows="4" placeholder="Briefly describe your project requirements..." required></textarea>
+                                
+                                <button type="submit">Submit Request</button>
+                            </form>
                         </div>
                     </div>
 
-                    <div class="contact-item">
-                        <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-                        <div>
-                            <span class="label">Call Us</span>
-                            <a href="tel:+263778490702" class="value">+263 77 849 0702</a>
-                        </div>
+                    <div class="contact-map" style="margin-top: 32px;">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3797.9609815665277!2d31.047837!3d-17.829243!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1931a5e3e4e7b2a1%3A0x3f3a5e8c9b0f0e!2sHarare%2C%20Zimbabwe!5e0!3m2!1sen!2s!4v1700000000000!5m2!1sen!2s" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Asphaltic Solutions Location Map"></iframe>
                     </div>
-
-                    <div class="contact-item" style="border-left-color: #25D366;">
-                        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                        <div>
-                            <span class="label">WhatsApp</span>
-                            <a href="https://wa.me/263719203802?text=Hello%20Asphaltic%20Solutions%2C%20I%20am%20interested%20in%20your%20construction%20services%20and%20would%20like%20a%20quote." class="value" target="_blank">+263 719 203 802</a>
-                        </div>
-                    </div>
-
-                    <div class="contact-item">
-                        <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-                        <div>
-                            <span class="label">Postal Address</span>
-                            <span class="value">P.O. Box 23, Harare</span>
-                        </div>
-                    </div>
-
-                </div>
-                
-                <!-- Added Request a Quote Form -->
-                <div class="contact-form-container fade-up">
-                    <h3>Request a Quote</h3>
-                    <form class="contact-form" action="mailto:info@asphaltic.co.zw" method="post" enctype="text/plain">
-                        <input type="text" name="Name" placeholder="Your Full Name" required>
-                        <input type="email" name="Email" placeholder="Your Email Address" required>
-                        <input type="tel" name="Phone" placeholder="Phone Number">
-                        <select name="Service">
-                            <option value="" disabled selected>Select Service Required</option>
-                            <option value="Road Surfacing">Road Surfacing</option>
-                            <option value="Pothole Fixing">Pothole Fixing</option>
-                            <option value="Sport Courts">Sport Courts</option>
-                            <option value="Road Marking & Signs">Road Marking & Signs</option>
-                            <option value="Durawall Construction">Durawall Construction</option>
-                            <option value="Plant Hire">Asphaltic Plant Hire</option>
-                        </select>
-                        <textarea name="Message" rows="4" placeholder="Briefly describe your project requirements..." required></textarea>
-                        <button type="submit">Submit Request</button>
-                    </form>
                 </div>
             </div>
-
-            <div class="contact-map fade-up" style="margin-top: 32px;">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3797.9609815665277!2d31.047837!3d-17.829243!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1931a5e3e4e7b2a1%3A0x3f3a5e8c9b0f0e!2sHarare%2C%20Zimbabwe!5e0!3m2!1sen!2s!4v1700000000000!5m2!1sen!2s" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-            </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
     <footer>
         <div class="container footer-content">
@@ -889,26 +877,48 @@
         </div>
     </footer>
 
-    <!-- --- Javascript for Animations & Mobile Menu --- -->
     <script>
+        // Single Page Navigation Controller
+        function navigateTo(pageId) {
+            const pages = document.querySelectorAll('.page-section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            // Hide all pages
+            pages.forEach(page => page.classList.remove('active-page'));
+            
+            // Show requested page
+            const targetPage = document.getElementById('page-' + pageId);
+            if (targetPage) {
+                targetPage.classList.add('active-page');
+            } else {
+                document.getElementById('page-home').classList.add('active-page');
+            }
+
+            // Update Nav Highlighting
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + pageId) {
+                    link.classList.add('active');
+                }
+            });
+
+            // Update URL hash without forcing jump
+            if (history.pushState) {
+                history.pushState(null, null, '#' + pageId);
+            } else {
+                location.hash = '#' + pageId;
+            }
+
+            // Close mobile menu
+            const navMenu = document.getElementById('navMenu');
+            if (navMenu) navMenu.classList.remove('active');
+
+            // Scroll smoothly to top of view
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
-            // Scroll reveal animation
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, {
-                threshold: 0.1,
-                rootMargin: "0px 0px -50px 0px"
-            });
-
-            document.querySelectorAll('.fade-up, .reveal').forEach((el) => {
-                observer.observe(el);
-            });
-
-            // Mobile Navigation Toggle
+            // Mobile Menu Toggle
             const navToggle = document.getElementById('navToggle');
             const navMenu = document.getElementById('navMenu');
 
@@ -916,16 +926,32 @@
                 navToggle.addEventListener('click', () => {
                     navMenu.classList.toggle('active');
                 });
+            }
 
-                // Close menu when clicking a link
-                document.querySelectorAll('#navMenu a').forEach(link => {
-                    link.addEventListener('click', () => {
-                        navMenu.classList.remove('active');
-                    });
+            // Route based on URL hash on direct load/refresh
+            const currentHash = window.location.hash.replace('#', '');
+            if (currentHash && document.getElementById('page-' + currentHash)) {
+                navigateTo(currentHash);
+            } else {
+                navigateTo('home');
+            }
+
+            // Handle browser back/forward buttons
+            window.addEventListener('popstate', () => {
+                const hash = window.location.hash.replace('#', '') || 'home';
+                navigateTo(hash);
+            });
+
+            // Form Handler Placeholder
+            const form = document.getElementById('quoteForm');
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    alert('Thank you! Your quote request has been received. We will get back to you shortly.');
+                    form.reset();
                 });
             }
         });
     </script>
-
 </body>
 </html>
